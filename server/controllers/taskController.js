@@ -77,8 +77,7 @@ export const duplicateTask = async (req, res) => {
 
     text =
       text +
-      ` The task priority is set a ${
-        task.priority
+      ` The task priority is set a ${task.priority
       } priority, so check and act accordingly. The task date is ${task.date.toDateString()}. Thank you!!!`;
 
     await Notice.create({
@@ -129,22 +128,22 @@ export const dashboardStatistics = async (req, res) => {
 
     const allTasks = isAdmin
       ? await Task.find({
-          isTrashed: false,
+        isTrashed: false,
+      })
+        .populate({
+          path: "team",
+          select: "name role title email",
         })
-          .populate({
-            path: "team",
-            select: "name role title email",
-          })
-          .sort({ _id: -1 })
+        .sort({ _id: -1 })
       : await Task.find({
-          isTrashed: false,
-          team: { $all: [userId] },
+        isTrashed: false,
+        team: { $all: [userId] },
+      })
+        .populate({
+          path: "team",
+          select: "name role title email",
         })
-          .populate({
-            path: "team",
-            select: "name role title email",
-          })
-          .sort({ _id: -1 });
+        .sort({ _id: -1 });
 
     const users = await User.find({ isActive: true })
       .select("name title role isAdmin createdAt")

@@ -18,14 +18,18 @@ const Login = () => {
   } = useForm();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
 
   const submitHandler = async (data) => {
     try {
-      const res = await login(data).unwrap();
+      const result = await login(data).unwrap();
+
       dispatch(setCredentials(result));
+
       navigate("/");
     } catch (error) {
+      console.log(error)
       toast.error(error?.data?.message || error.message);
     }
     // console.log("submit");
@@ -98,11 +102,15 @@ const Login = () => {
                 Forget Password?
               </span>
 
-              {isLoading ? <Loading/> : <Button
-                type="submit"
-                label="Submit"
-                className="w-full h-10 bg-blue-700 text-white rounded-full"
-              />}
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <Button
+                  type="submit"
+                  label="Submit"
+                  className="w-full h-10 bg-blue-700 text-white rounded-full"
+                />
+              )}
             </div>
           </form>
         </div>

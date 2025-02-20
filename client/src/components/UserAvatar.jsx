@@ -13,9 +13,13 @@ const UserAvatar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const logoutHandler = () => {
-    console.log("logout");
-  };
+  // const logoutHandler = () => {
+  //   try {
+  //     console.log("logout");
+  //   } catch (error) {
+      
+  //   }
+  // };
 
   return (
     <>
